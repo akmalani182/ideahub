@@ -1,4 +1,5 @@
 require("dotenv").config();
+import { sequelize } from "./config/db";
 import Routes from "./router/index";
 const express = require("express");
 
@@ -8,9 +9,10 @@ var cors = require("cors");
 app.use(express.json());
 
 app.use(cors());
+// sequelize.sync();
 app.use(Routes);
 app.use("/", async (req, res) => {
-  res.send("hello");
+  res.send("Url you are trying to access is not found");
 });
 
 app.listen(PORT, () => {

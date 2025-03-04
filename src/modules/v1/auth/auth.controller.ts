@@ -1,6 +1,6 @@
-import { commonMessages } from "../../helpers/commanMsg";
-import { sendResponse } from "../../helpers/handleResponse";
-import HttpStatus = require("../../helpers/httpCodes");
+import { commonMessages } from "../../../helpers/commanMsg";
+import { sendResponse } from "../../../helpers/handleResponse";
+import HttpStatus = require("../../../helpers/httpCodes");
 
 import authService from "./auth.service";
 // const { Request, Response } = require("express");

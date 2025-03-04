@@ -1,11 +1,11 @@
 
-import { CustomError } from "../../helpers/handleResponse";
-import { comparePassword, getTokens, hashPassword, verifyToken } from "../../helpers/utils";
-import HttpStatus = require("../../helpers/httpCodes");
+import { CustomError } from "../../../helpers/handleResponse";
+import { comparePassword, getTokens, hashPassword, verifyToken } from "../../../helpers/utils";
+import HttpStatus = require("../../../helpers/httpCodes");
 import { loginValidation, registerValidation } from "./auth.validation";
-import { createDataQuery, getOneDataQuery } from "../../helpers/dbQuery";
-import User from "../../models/user.model";
-import { commonMessages } from "../../helpers/commanMsg";
+import { createDataQuery, getOneDataQuery } from "../../../helpers/dbQuery";
+import User from "../../../models/user.model";
+import { commonMessages } from "../../../helpers/commanMsg";
 
 const loginService = async (req) => {
   try {
@@ -15,7 +15,7 @@ const loginService = async (req) => {
       throw new CustomError(error.details[0].message, HttpStatus.BAD_REQUEST);
     }
 
-    const user = await getOneDataQuery(User, { email: value.email }, ["id", "email", "password"]);
+    const user = await getOneDataQuery(User, { email: value.email }, ["id", "email", "password", "role"]);
 
     if (!user) {
       throw new CustomError(
@@ -32,7 +32,10 @@ const loginService = async (req) => {
         HttpStatus.UNAUTHORIZED
       );
     }
-    const token = await getTokens(user.dataValues.id);
+    const { id, role } = user.dataValues;
+    console.log("id", id, role);
+
+    const token = await getTokens({ userId: id, role: role });
 
     return token;
   } catch (error) {
@@ -66,7 +69,7 @@ const registerService = async (req) => {
 const refreshTokenService = async (req) => {
   try {
     const { refreshToken } = req.body;
-    const decoded = await verifyToken(refreshToken) as { userId: string };
+    const decoded = await verifyToken(refreshToken) as { userId: string, role: string };
 
     if (!decoded.userId) {
       throw new CustomError(
@@ -74,8 +77,8 @@ const refreshTokenService = async (req) => {
         HttpStatus.UNAUTHORIZED
       );
     }
-
-    const token = await getTokens(decoded.userId) as { accessToken: string };
+    const { userId, role } = decoded;
+    const token = await getTokens({ userId, role }) as { accessToken: string };
 
     return { accessToken: token.accessToken };
   } catch (error) {

@@ -7,4 +7,13 @@ export const commonMessages = {
   INVALID_PASSWORD: "Invalid password",
   UNAUTHORIZED: "Unauthorized",
   SUCCESS: "Success",
+  IDEA_SUBMITED: "Idea submitted",
+  COMMENT_ADDED: "Comment added",
+  IDEA_ID_REQUIRED: "Idea id is required",
+  VOTE_ADDED: "Vote recorded",
+  VOTE_EXIST: "Vote already recorded",
+  IDEA_NOT_FOUND: "Idea not found",
+  FORBIDDEN: "Insufficient permissions",
+  IDEA_UPDATED: "Idea updated",
+  IDEA_DELETED: "Idea deleted",
 };
