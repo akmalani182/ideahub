@@ -1,4 +1,5 @@
-class CustomError extends Error {
+export class CustomError extends Error {
+  status: number;
   constructor(message, status) {
     super(message);
     this.status = status;
@@ -7,7 +8,13 @@ class CustomError extends Error {
   }
 }
 
-function sendResponse(res, statusCode, message, data = null, error = false) {
+export function sendResponse(
+  res,
+  statusCode: number,
+  message: string,
+  data = null,
+  error = false
+) {
   if (error) {
     return res
       .status(statusCode)
@@ -18,5 +25,3 @@ function sendResponse(res, statusCode, message, data = null, error = false) {
       .json({ error: false, status: statusCode, message, data });
   }
 }
-
-module.exports = { sendResponse, CustomError };

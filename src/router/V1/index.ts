@@ -1,6 +1,8 @@
+import authRoute from "./auth";
+
 const expressApp = require("express");
 const v1routes = expressApp.Router();
 
-v1routes.use("/auth", require("./auth/index"));
+v1routes.use("/auth", authRoute);
 
-module.exports = v1routes;
+export default v1routes;
