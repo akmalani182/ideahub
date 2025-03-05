@@ -16,4 +16,7 @@ export const commonMessages = {
   FORBIDDEN: "Insufficient permissions",
   IDEA_UPDATED: "Idea updated",
   IDEA_DELETED: "Idea deleted",
+  URL_NOT_FOUND: "Url you are trying to access is not found",
+  TOO_MANY_REQ: "Too many requests, please try again later.",
+  ACCESS_DENIED: "Access denied",
 };

@@ -33,7 +33,6 @@ const loginService = async (req) => {
       );
     }
     const { id, role } = user.dataValues;
-    console.log("id", id, role);
 
     const token = await getTokens({ userId: id, role: role });
 

@@ -1,3 +1,5 @@
+import logger from "../logger/logger";
+
 export class CustomError extends Error {
   status: number;
   constructor(message, status) {
@@ -15,11 +17,26 @@ export function sendResponse(
   data = null,
   error = false
 ) {
+  const startTime = Date.now();
   if (error) {
+    logger.error(JSON.stringify({
+      statusCode,
+      message,
+      data,
+      error,
+      time: Date.now() - startTime
+    }));
     return res
       .status(statusCode)
       .json({ error: true, status: statusCode, message, data: null });
   } else {
+    logger.info(JSON.stringify({
+      statusCode,
+      message,
+      data,
+      error,
+      time: Date.now() - startTime
+    }))
     return res
       .status(statusCode)
       .json({ error: false, status: statusCode, message, data });
