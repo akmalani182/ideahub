@@ -38,6 +38,7 @@ app.use("/", async (req, res) => {
   res.send(commonMessages.URL_NOT_FOUND);
 });
 
+export default app;
 const sslOptions = {
   key: fs.readFileSync("server.key"),
   cert: fs.readFileSync("server.cert"),

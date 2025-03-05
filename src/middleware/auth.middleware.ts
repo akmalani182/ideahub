@@ -27,8 +27,9 @@ export const adminRole = (req, res, next) => {
     try {
         if (req.user.role !== "admin") {
             sendResponse(res, HttpStatus.FORBIDDEN, commonMessages.FORBIDDEN, null, true);
+        } else {
+            next();
         }
-        next();
     } catch (error) {
         sendResponse(res, error.status || HttpStatus.INTERNAL_SERVER_ERROR,
             error.message || commonMessages.INTERNAL_SERVER_ERROR, null, true);
